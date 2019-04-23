@@ -1,6 +1,7 @@
 package technology.tabula;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -30,7 +31,9 @@ public class ObjectExtractor {
 
         pdfTextStripper.process();
 
+        printTextElements(pdfTextStripper.textElements);
         Utils.sort(pdfTextStripper.textElements, Rectangle.ILL_DEFINED_ORDER);
+        printTextElements(pdfTextStripper.textElements);
 
         float w, h;
         int pageRotation = p.getRotation();
@@ -46,6 +49,26 @@ public class ObjectExtractor {
                 se.rulings, pdfTextStripper.minCharWidth, pdfTextStripper.minCharHeight, pdfTextStripper.spatialIndex);
     }
 
+    private void printTextElements(List<TextElement> textElements) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("printTextElements BEGIN\n");
+        sb.append("[\n");
+        for (TextElement el : textElements) {
+            sb.append("{ ");
+            
+            sb.append("\"text\": \""+el.getText()+"\"");
+            sb.append(", \"x\": "+el.getX());
+            sb.append(", \"y\": "+el.getY());
+            sb.append(", \"widht\": "+el.getWidth());
+            sb.append(", \"height\": "+el.getHeight());
+            
+            sb.append(" }\n");
+        }
+        sb.append("\n]");
+        sb.append("printTextElements END");
+        System.err.println(sb);
+    }
+    
     public PageIterator extract(Iterable<Integer> pages) {
         return new PageIterator(this, pages);
     }
