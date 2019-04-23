@@ -61,6 +61,7 @@ public class ObjectExtractor {
             sb.append(", \"y\": "+el.getY());
             sb.append(", \"widht\": "+el.getWidth());
             sb.append(", \"height\": "+el.getHeight());
+            sb.append(", \"dir\": "+el.getDirection());
             
             sb.append(" }\n");
         }
