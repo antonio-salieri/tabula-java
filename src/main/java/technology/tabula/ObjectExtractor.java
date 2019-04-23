@@ -31,9 +31,9 @@ public class ObjectExtractor {
 
         pdfTextStripper.process();
 
-        printTextElements(pdfTextStripper.textElements);
+        // printTextElements(pdfTextStripper.textElements);
         Utils.sort(pdfTextStripper.textElements, Rectangle.ILL_DEFINED_ORDER);
-        printTextElements(pdfTextStripper.textElements);
+        // printTextElements(pdfTextStripper.textElements);
 
         float w, h;
         int pageRotation = p.getRotation();

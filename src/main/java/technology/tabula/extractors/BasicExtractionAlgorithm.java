@@ -44,7 +44,13 @@ public class BasicExtractionAlgorithm implements ExtractionAlgorithm {
         }
         
         List<TextChunk> textChunks = this.verticalRulings == null ? TextElement.mergeWords(page.getText()) : TextElement.mergeWords(page.getText(), this.verticalRulings);
+        for (int i = 0; i < textChunks.size(); i++) {
+            System.err.println("Line " + i + " before grouping: " + textChunks.get(i));
+        }
         List<Line> lines = TextChunk.groupByLines(textChunks);
+        for (int i = 0; i < lines.size(); i++) {
+            System.err.println("Line " + i + " after grouping: " + lines.get(i));
+        }
         List<Float> columns = null;
         
         if (this.verticalRulings != null) {
@@ -78,6 +84,13 @@ public class BasicExtractionAlgorithm implements ExtractionAlgorithm {
 				}
 			});
             
+            System.err.println("Line " + i + ": " + line);
+            System.err.print("Line " + i + " elements: ");
+            for (TextChunk el : elements) {
+                System.err.print(el.toString());
+            }
+            System.err.println();
+
             for (TextChunk tc: elements) {
                 if (tc.isSameChar(Line.WHITE_SPACE_CHARS)) {
                     continue;
